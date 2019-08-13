@@ -59,15 +59,8 @@ func (l *Logger) Fields(fields map[string]interface{}) *Logger {
 	return l
 }
 
-// Stack 日志堆栈信息
-func (l *Logger) Stack(err error) *Logger {
-	l.logger.UpdateContext(func(ctx zerolog.Context) zerolog.Context {
-		if err != nil {
-			ctx.Err(err)
-		}
-
-		return ctx.Stack()
-	})
-
+// Hook 钩子注册
+func (l *Logger) Hook(h zerolog.Hook) *Logger {
+	l.logger = l.logger.Hook(h)
 	return l
 }

@@ -11,8 +11,8 @@ import (
 	"github.com/spf13/viper"
 )
 
-// ReadConfig 读取配置文件
-func ReadConfig(path string) {
+// Read 读取配置文件
+func Read(path string) {
 	files, err := ioutil.ReadDir(path)
 	if err != nil {
 		panic(fmt.Sprintf("Fatal error config path: %s, err: %v", path, err))
@@ -55,8 +55,8 @@ func ReadConfig(path string) {
 	log.Printf("config files : %v", ff)
 }
 
-// WatchConfig 监控配置文件
-func WatchConfig(path string) {
+// Watch 监控配置文件
+func Watch(path string) {
 	watcher, err := fsnotify.NewWatcher()
 	if err != nil {
 		panic(fmt.Sprintf("Fatal error watch config path: %s, err: %v", path, err))
@@ -75,7 +75,7 @@ func WatchConfig(path string) {
 				(event.Op&fsnotify.Create == fsnotify.Create) ||
 				(event.Op&fsnotify.Remove == fsnotify.Remove) ||
 				(event.Op&fsnotify.Rename == fsnotify.Rename) {
-				ReadConfig(path)
+				Read(path)
 				log.Printf("config is change :%s \n", event.String())
 			}
 		case err = <-watcher.Errors:

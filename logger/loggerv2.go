@@ -179,3 +179,33 @@ func (l *Logger) Fatalf(format string, args ...interface{}) {
 func (l *Logger) V(level int) bool {
 	return true
 }
+
+// Panic logs to Panic log. Arguments are handled in the manner of fmt.Print.
+func (l *Logger) Panic(args ...interface{}) {
+	event := l.logger.Panic()
+	if l.config.Caller {
+		event = event.Caller()
+	}
+
+	event.Msg(fmt.Sprint(args...))
+}
+
+// Panicln logs to Panic log. Arguments are handled in the manner of fmt.Println.
+func (l *Logger) Panicln(args ...interface{}) {
+	event := l.logger.Panic()
+	if l.config.Caller {
+		event = event.Caller()
+	}
+
+	event.Msg(strings.TrimRight(fmt.Sprintln(args...), "\n"))
+}
+
+// Panicf logs to Panic log. Arguments are handled in the manner of fmt.Printf.
+func (l *Logger) Panicf(format string, args ...interface{}) {
+	event := l.logger.Panic()
+	if l.config.Caller {
+		event = event.Caller()
+	}
+
+	event.Msgf(format, args...)
+}

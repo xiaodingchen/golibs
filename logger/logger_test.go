@@ -1,7 +1,6 @@
 package logger
 
 import (
-	"errors"
 	"strings"
 	"testing"
 
@@ -54,16 +53,6 @@ func Test_Fields(t *testing.T) {
 	}
 
 	t.Fatal("faild")
-}
-
-func Test_Stack(t *testing.T) {
-	config := funcConfig()
-	logger := New(config)
-	err := errors.New("stack_err")
-	logger.Fields(map[string]interface{}{
-		"test_field": "demo",
-	}).Stack(err).Info("test_stack_err")
-	t.Log("logger stack pass")
 }
 
 func testLoggerV2(t *testing.T) {
