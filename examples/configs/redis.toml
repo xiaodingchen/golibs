@@ -1,0 +1,5 @@
+[redis]
+Host="redis-host"
+Port=6379
+Password="redis-pa22ss"
+DB="0"
