@@ -9,6 +9,7 @@ import (
 	"time"
 
 	"github.com/rs/zerolog"
+	"github.com/rs/zerolog/diode"
 	"github.com/rs/zerolog/log"
 	"github.com/syyongx/php2go"
 )
@@ -142,6 +143,13 @@ func (c *Config) NewWriter() io.Writer {
 		if err != nil {
 			log.Panic().Msgf("open logfile %s err: %v", c.zerofilename, err)
 		}
+	}
+
+	if c.AsyncWriter {
+		w = diode.NewWriter(w, c.AsyncSize, time.Duration(c.AsyncInterval)*time.Millisecond, func(missed int) {
+			//fmt.Printf("Logger Dropped %d messages", missed)
+			// log.Info().Msgf("Logger Dropped %d messages", missed)
+		})
 	}
 
 	return w

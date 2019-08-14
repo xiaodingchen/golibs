@@ -2,3 +2,4 @@
 !.keep
 !.gitignore
 logs
+/vendor

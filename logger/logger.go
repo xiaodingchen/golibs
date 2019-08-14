@@ -1,12 +1,11 @@
 package logger
 
 import (
-	"fmt"
 	"io/ioutil"
-	"time"
+
+	"github.com/rs/zerolog/log"
 
 	"github.com/rs/zerolog"
-	"github.com/rs/zerolog/diode"
 )
 
 // Logger zerolog logger
@@ -24,12 +23,6 @@ func New(config *Config) *Logger {
 
 	w := config.NewWriter()
 	var logger zerolog.Logger
-	if config.AsyncWriter {
-		w = diode.NewWriter(w, config.AsyncSize, time.Duration(config.AsyncInterval)*time.Millisecond, func(missed int) {
-			fmt.Printf("Logger Dropped %d messages", missed)
-		})
-	}
-
 	logger = zerolog.New(w).With().Timestamp().Logger()
 
 	if w == ioutil.Discard {
@@ -42,6 +35,12 @@ func New(config *Config) *Logger {
 		logger: logger,
 		config: config,
 	}
+}
+
+// Log 返回一个 zerlog对象
+// 无任何配置
+func Log() zerolog.Logger {
+	return log.Logger
 }
 
 // ZeroLogger 返回一个 zerolog logger
@@ -63,4 +62,10 @@ func (l *Logger) Fields(fields map[string]interface{}) *Logger {
 func (l *Logger) Hook(h zerolog.Hook) *Logger {
 	l.logger = l.logger.Hook(h)
 	return l
+}
+
+// SetCaller 设置Caller关闭或开启
+// caller是一个很耗性能的操作，一般生产环境建议关闭
+func (l *Logger) SetCaller(o bool) {
+	l.config.Caller = o
 }
