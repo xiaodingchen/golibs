@@ -1,9 +1,8 @@
 package logger
 
 import (
+	"io"
 	"io/ioutil"
-
-	"github.com/rs/zerolog/log"
 
 	"github.com/rs/zerolog"
 )
@@ -37,15 +36,15 @@ func New(config *Config) *Logger {
 	}
 }
 
-// Log 返回一个 zerlog对象
-// 无任何配置
-func Log() zerolog.Logger {
-	return log.Logger
-}
-
 // ZeroLogger 返回一个 zerolog logger
 func (l *Logger) ZeroLogger() zerolog.Logger {
 	return l.logger
+}
+
+// Output 日志输出
+func (l *Logger) Output(w io.Writer) *Logger {
+	l.logger.Output(w)
+	return l
 }
 
 // Fields 日志扩展字段

@@ -1,11 +1,11 @@
 package config
 
 import (
-	"fmt"
 	"io/ioutil"
-	"log"
 	"path/filepath"
 	"strings"
+
+	"github.com/rs/zerolog/log"
 
 	"github.com/fsnotify/fsnotify"
 	"github.com/spf13/viper"
@@ -15,7 +15,7 @@ import (
 func Read(path string) {
 	files, err := ioutil.ReadDir(path)
 	if err != nil {
-		panic(fmt.Sprintf("Fatal error config path: %s, err: %v", path, err))
+		log.Panic().Msgf("Fatal error config path: %s, err: %v", path, err)
 	}
 	ff := []string{}
 	for _, f := range files {
@@ -34,7 +34,7 @@ func Read(path string) {
 		ff = append(ff, f.Name())
 	}
 	if len(ff) < 1 {
-		panic(fmt.Sprintf("Fatal error config path: %s, err: %v", path, "no such config file."))
+		log.Panic().Msgf("Fatal error config path: %s, err: %v", path, "no such config file.")
 	}
 
 	viper.AddConfigPath(path)
@@ -48,23 +48,24 @@ func Read(path string) {
 			err = viper.MergeInConfig()
 		}
 		if err != nil {
-			panic(fmt.Sprintf("Fatal error config file:%s, err: %v", filepath.Join(path, cf), err))
+			log.Panic().Msgf("Fatal error config file:%s, err: %v", filepath.Join(path, cf), err)
 		}
 	}
 
-	log.Printf("config files : %v", ff)
+	log.Debug().Msgf("config files : %v", ff)
+
 }
 
 // Watch 监控配置文件
 func Watch(path string) {
 	watcher, err := fsnotify.NewWatcher()
 	if err != nil {
-		panic(fmt.Sprintf("Fatal error watch config path: %s, err: %v", path, err))
+		log.Panic().Msgf("Fatal error watch config path: %s, err: %v", path, err)
 	}
 	defer watcher.Close()
 	err = watcher.Add(path)
 	if err != nil {
-		panic(fmt.Sprintf("Fatal error watch config path: %s, err: %v", path, err))
+		log.Panic().Msgf("Fatal error watch config path: %s, err: %v", path, err)
 	}
 
 	for {
@@ -76,10 +77,10 @@ func Watch(path string) {
 				(event.Op&fsnotify.Remove == fsnotify.Remove) ||
 				(event.Op&fsnotify.Rename == fsnotify.Rename) {
 				Read(path)
-				log.Printf("config is change :%s \n", event.String())
+				log.Debug().Msgf("config is change :%s \n", event.String())
 			}
 		case err = <-watcher.Errors:
-			panic(fmt.Sprintf("Fatal error watch config path: %s, err: %v", path, err))
+			log.Panic().Msgf("Fatal error watch config path: %s, err: %v", path, err)
 		}
 	}
 }
