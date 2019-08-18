@@ -209,3 +209,18 @@ func (l *Logger) Panicf(format string, args ...interface{}) {
 
 	event.Msgf(format, args...)
 }
+
+// Print Arguments are handled in the manner of fmt.Print.
+func (l *Logger) Print(args ...interface{}) {
+	l.logger.Print(args...)
+}
+
+// Println Arguments are handled in the manner of fmt.Println.
+func (l *Logger) Println(args ...interface{}) {
+	l.logger.Print(fmt.Sprintln(args...))
+}
+
+// Printf Arguments are handled in the manner of fmt.Printf.
+func (l *Logger) Printf(format string, args ...interface{}) {
+	l.logger.Printf(format, args...)
+}

@@ -7,6 +7,10 @@ import (
 	"github.com/rs/zerolog"
 )
 
+type Interface interface {
+	Print(v ...interface{})
+}
+
 // Logger zerolog logger
 type Logger struct {
 	logger zerolog.Logger
