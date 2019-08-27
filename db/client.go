@@ -13,12 +13,14 @@ type Client struct {
 	*Config
 }
 
-type logger interface {
+type Logger interface {
 	Print(v ...interface{})
 }
 
 type defaultLogger struct {
 }
+
+var defaultlogger = defaultLogger{}
 
 func (l defaultLogger) Print(v ...interface{}) {
 	log.Print(v...)
@@ -26,12 +28,12 @@ func (l defaultLogger) Print(v ...interface{}) {
 
 // NewClient 创建一个数据库客户端
 func NewClient(config *Config) (client *Client, err error) {
-	client, err = NewClientWithLogger(config, defaultLogger{})
+	client, err = NewClientWithLogger(config, defaultlogger)
 	return
 }
 
 // NewClientWithLogger 创建一个数据库客户端
-func NewClientWithLogger(config *Config, l logger) (client *Client, err error) {
+func NewClientWithLogger(config *Config, l Logger) (client *Client, err error) {
 	config.InitWithDefaults()
 	db, err := gorm.Open(config.Driver, config.DSN)
 	if err != nil {

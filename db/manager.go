@@ -9,19 +9,19 @@ import (
 type Manager struct {
 	clients sync.Map
 	configs sync.Map
-	l       logger
+	l       Logger
 }
 
 // NewManager 返回一个manager对象
 func NewManager(configs map[string]*Config) *Manager {
 	mgr := &Manager{}
-	mgr.l = defaultLogger{}
+	mgr.l = defaultlogger
 	mgr.Store(configs)
 	return mgr
 }
 
 // NewManagerWithLogger 返回一个manager对象
-func NewManagerWithLogger(configs map[string]*Config, l logger) *Manager {
+func NewManagerWithLogger(configs map[string]*Config, l Logger) *Manager {
 	mgr := &Manager{}
 	mgr.l = l
 	mgr.Store(configs)
@@ -29,13 +29,13 @@ func NewManagerWithLogger(configs map[string]*Config, l logger) *Manager {
 }
 
 // SetLogger 设置日志
-func (mgr *Manager) SetLogger(l logger) {
+func (mgr *Manager) SetLogger(l Logger) {
 	mgr.l = l
 }
 
 // Store 添加配置
 func (mgr *Manager) Store(configs map[string]*Config) {
-	if configs == nil {
+	if configs == nil || len(configs) == 0 {
 		return
 	}
 
@@ -57,6 +57,9 @@ func (mgr *Manager) Load(name string) (client *Client, err error) {
 
 		config, ok := value.(*Config)
 		if ok {
+			if mgr.l == nil {
+				mgr.l = defaultlogger
+			}
 			client, err := NewClientWithLogger(config, mgr.l)
 			if err == nil {
 				mgr.clients.Store(name, client)
@@ -97,7 +100,17 @@ func (mgr *Manager) Delete(name string) (err error) {
 }
 
 // Add 添加一个
-func (mgr *Manager) Add(name string, config *Config) {
+func (mgr *Manager) Add(name string, config *Config) (err error) {
 	config.InitWithDefaults()
 	mgr.configs.Store(name, config)
+	// value, ok := mgr.clients.Load(name)
+	// if ok {
+	// 	client, ok := value.(*Client)
+	// 	if ok {
+	// 		err = client.Close()
+	// 	}
+	// }
+
+	// mgr.clients.Delete(name)
+	return
 }
