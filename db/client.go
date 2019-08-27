@@ -5,13 +5,16 @@ import (
 
 	"github.com/jinzhu/gorm"
 	"github.com/rs/zerolog/log"
-	"github.com/xiaodingchen/golibs/logger"
 )
 
 // Client 数据库客户端
 type Client struct {
 	*gorm.DB
 	*Config
+}
+
+type logger interface {
+	Print(v ...interface{})
 }
 
 type defaultLogger struct {
@@ -21,14 +24,14 @@ func (l defaultLogger) Print(v ...interface{}) {
 	log.Print(v...)
 }
 
-// New 创建一个数据库客户端
-func New(config *Config) (client *Client, err error) {
-	client, err = NewWithLogger(config, defaultLogger{})
+// NewClient 创建一个数据库客户端
+func NewClient(config *Config) (client *Client, err error) {
+	client, err = NewClientWithLogger(config, defaultLogger{})
 	return
 }
 
-// NewWithLogger 创建一个数据库客户端
-func NewWithLogger(config *Config, l logger.Interface) (client *Client, err error) {
+// NewClientWithLogger 创建一个数据库客户端
+func NewClientWithLogger(config *Config, l logger) (client *Client, err error) {
 	config.InitWithDefaults()
 	db, err := gorm.Open(config.Driver, config.DSN)
 	if err != nil {
