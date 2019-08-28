@@ -1,6 +1,8 @@
 package db
 
 import (
+	"fmt"
+	"strings"
 	"time"
 
 	"github.com/jinzhu/gorm"
@@ -23,7 +25,7 @@ type defaultLogger struct {
 var defaultlogger = defaultLogger{}
 
 func (l defaultLogger) Print(v ...interface{}) {
-	log.Print(v...)
+	log.Print(strings.TrimRight(fmt.Sprintln(v...), "\n"))
 }
 
 // NewClient 创建一个数据库客户端
