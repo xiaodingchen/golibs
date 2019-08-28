@@ -3,9 +3,10 @@ package xmysql
 import (
 	"database/sql"
 	"fmt"
-	"strconv"
 	"testing"
 	"time"
+
+	"github.com/google/uuid"
 
 	"github.com/jinzhu/gorm"
 	"github.com/xiaodingchen/golibs/db"
@@ -95,7 +96,7 @@ func Test_Insert(t *testing.T) {
 	client.LogMode(true)
 
 	now := time.Now()
-	no := strconv.FormatInt(time.Now().UnixNano(), 10)
+	no := uuid.New().String()
 	email := fmt.Sprintf("%d@qq.com", time.Now().UnixNano())
 	user := User{
 		Name: "Jinzhu",
