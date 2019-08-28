@@ -42,6 +42,10 @@ func NewClientWithLogger(config *Config, l Logger) (client *Client, err error) {
 		return
 	}
 
+	if config.LogMode {
+		db.LogMode(true)
+	}
+
 	db.SetLogger(l)
 
 	if config.MaxOpenConns > 0 {

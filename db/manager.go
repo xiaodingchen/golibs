@@ -14,9 +14,7 @@ type Manager struct {
 
 // NewManager 返回一个manager对象
 func NewManager(configs map[string]*Config) *Manager {
-	mgr := &Manager{}
-	mgr.l = defaultlogger
-	mgr.Store(configs)
+	mgr := NewManagerWithLogger(configs, defaultlogger)
 	return mgr
 }
 
