@@ -1,0 +1,23 @@
+[db]
+    driver = "mysql"
+    [db.master]
+        host ="localhost"
+        port = 3306
+        user = "root"
+        password = "root"
+        dbname = "test"
+        charset = "utf8"
+    [db.slave1]
+        host ="localhost"
+        port = 3306
+        user = "root"
+        password = "root"
+        dbname = "test"
+        charset = "utf8"
+    [db.slave2]
+        host ="localhost"
+        port = 3306
+        user = "root"
+        password = "root"
+        dbname = "test"
+        charset = "utf8"
