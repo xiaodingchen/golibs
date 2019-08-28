@@ -19,6 +19,7 @@ const (
 
 // Config 数据库配置
 type Config struct {
+	Name            string
 	Driver          string
 	DSN             string
 	MaxOpenConns    int

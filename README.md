@@ -6,3 +6,5 @@
 ### Logger 日志组件
 logger组件是对 `zerolog`的简单封装，实现了`grpclog.LoggerV2`接口。具体可以参考 `examples`目录下的使用示例。文档地址：https://godoc.org/github.com/xiaodingchen/golibs/logger
 
+### XMySQL mysql组件
+xmysql组件是对 `gorm` 的简单封装，具体使用可以参考 `client_test.go` 文件。

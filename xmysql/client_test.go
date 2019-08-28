@@ -144,6 +144,35 @@ func Test_Select(t *testing.T) {
 	t.Log("mysql client select pass")
 }
 
+func Test_Clear(t *testing.T) {
+	multipleClients()
+	err := DefaultManager.Clear()
+	if err != nil {
+		t.Fatal("mysql client clear err", err)
+	}
+
+	client1, err := Select("master")
+	if err != nil {
+		t.Log("mysql client err", err)
+	}
+
+	client2, err := Select("slave1")
+	if err != nil {
+		t.Log("mysql client err", err)
+	}
+
+	client3, err := Select("slave2")
+	if err != nil {
+		t.Log("mysql client err", err)
+	}
+
+	if client1 != nil || client2 != nil || client3 != nil {
+		t.Fatal("db manager clear fatal")
+	}
+
+	t.Log("mysql client clear pass")
+}
+
 func multipleClients() {
 	cfgs := []*Config{}
 	config1 := fconfig()

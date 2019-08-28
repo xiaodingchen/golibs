@@ -102,6 +102,7 @@ func (mgr *Manager) Delete(name string) (err error) {
 // Add 添加一个
 func (mgr *Manager) Add(name string, config *Config) (err error) {
 	config.InitWithDefaults()
+	config.Name = name
 	mgr.configs.Store(name, config)
 	// value, ok := mgr.clients.Load(name)
 	// if ok {
@@ -112,5 +113,25 @@ func (mgr *Manager) Add(name string, config *Config) (err error) {
 	// }
 
 	// mgr.clients.Delete(name)
+	return
+}
+
+// Clear 清除所有的 db client
+func (mgr *Manager) Clear() (err error) {
+	mgr.configs.Range(func(key, value interface{}) bool {
+		var name string
+		var ok bool
+		name, ok = key.(string)
+		if !ok {
+			return false
+		}
+		err = mgr.Delete(name)
+		if err != nil {
+			mgr.l.Print(err)
+			return false
+		}
+		return true
+	})
+
 	return
 }
