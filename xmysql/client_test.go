@@ -72,8 +72,6 @@ func Test_Create_Table(t *testing.T) {
 		t.Fatal("mysql client nil")
 	}
 
-	client.LogMode(true)
-
 	err = client.CreateTable(User{}).Error
 	if err != nil {
 		t.Fatal("create table err", err)
@@ -93,8 +91,6 @@ func Test_Insert(t *testing.T) {
 		t.Fatal("mysql client nil")
 	}
 
-	client.LogMode(true)
-
 	now := time.Now()
 	no := uuid.New().String()
 	email := fmt.Sprintf("%d@qq.com", time.Now().UnixNano())
@@ -102,6 +98,7 @@ func Test_Insert(t *testing.T) {
 		Name: "Jinzhu",
 		Age: sql.NullInt64{
 			Int64: 18,
+			Valid: true,
 		},
 		Birthday:     &now,
 		MemberNumber: &no,

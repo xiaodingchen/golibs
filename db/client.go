@@ -42,7 +42,7 @@ func NewClientWithLogger(config *Config, l Logger) (client *Client, err error) {
 		return
 	}
 
-	if config.LogMode {
+	if config.LogModeSwitch {
 		db.LogMode(true)
 	}
 

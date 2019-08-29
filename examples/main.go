@@ -88,7 +88,7 @@ func initDB() {
 	config.Config = &db.Config{}
 	dsnFmt := "%s:%s@tcp(%s:%s)/%s?charset=%s&parseTime=True&loc=Local"
 	config.Name = "master"
-	config.Config.LogMode = true
+	config.Config.LogModeSwitch = false
 	config.Config.Driver = viper.GetString("db.driver")
 	config.Config.DSN = fmt.Sprintf(dsnFmt,
 		viper.GetString("db.master.user"),
