@@ -5,6 +5,7 @@ go 1.12
 require (
 	code.cloudfoundry.org/go-diodes v0.0.0-20190809170250-f77fb823c7ee // indirect
 	github.com/fsnotify/fsnotify v1.4.7
+	github.com/go-redis/redis v6.15.2+incompatible
 	github.com/go-sql-driver/mysql v1.4.1
 	github.com/google/uuid v1.1.1
 	github.com/jinzhu/gorm v1.9.10
