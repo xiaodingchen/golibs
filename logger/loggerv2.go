@@ -212,7 +212,7 @@ func (l *Logger) Panicf(format string, args ...interface{}) {
 
 // Print Arguments are handled in the manner of fmt.Print.
 func (l *Logger) Print(args ...interface{}) {
-	l.logger.Print(args...)
+	l.logger.Print(fmt.Sprint(args...))
 }
 
 // Println Arguments are handled in the manner of fmt.Println.

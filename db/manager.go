@@ -44,13 +44,18 @@ func (mgr *Manager) Store(configs map[string]*Config) {
 
 // Load 返回一个db对象
 func (mgr *Manager) Load(name string) (client *Client, err error) {
+	if len(name) == 0 {
+		err = fmt.Errorf("db client name empty")
+		return
+	}
+
 	var value interface{}
 	var ok bool
 	value, ok = mgr.clients.Load(name)
 	if !ok {
 		value, ok = mgr.configs.Load(name)
 		if !ok {
-			return nil, fmt.Errorf("%s configuration does not exist", name)
+			return nil, fmt.Errorf("%s db configuration does not exist", name)
 		}
 
 		config, ok := value.(*Config)
@@ -81,6 +86,11 @@ func (mgr *Manager) Load(name string) (client *Client, err error) {
 
 // Delete 删除一个
 func (mgr *Manager) Delete(name string) (err error) {
+	if len(name) == 0 {
+		err = fmt.Errorf("db client name empty")
+		return
+	}
+
 	var value interface{}
 	var ok bool
 	// 删除配置
@@ -99,8 +109,21 @@ func (mgr *Manager) Delete(name string) (err error) {
 
 // Add 添加一个
 func (mgr *Manager) Add(name string, config *Config) (err error) {
+	if config == nil {
+		err = fmt.Errorf("%s config nil", name)
+		return
+	}
+
+	if len(name) == 0 {
+		err = fmt.Errorf("db client name empty")
+		return
+	}
+
+	if len(config.Name) == 0 {
+		config.Name = name
+	}
 	config.InitWithDefaults()
-	config.Name = name
+
 	mgr.configs.Store(name, config)
 	// value, ok := mgr.clients.Load(name)
 	// if ok {
