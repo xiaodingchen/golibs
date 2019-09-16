@@ -62,7 +62,10 @@ func (mgr *Manager) Load(name string) (client *Client, err error) {
 
 		config, ok := v.(*Config)
 		if ok {
-			client = newClient(config)
+			client, err = newClient(config)
+			if err != nil {
+				return client, err
+			}
 			if client != nil {
 				mgr.clients.Store(name, client)
 			}

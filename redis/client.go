@@ -1,7 +1,14 @@
 package redis
 
 import (
+	"strings"
+
 	goredis "github.com/go-redis/redis"
+)
+
+const (
+	Pong = "PONG"
+	Nil  = goredis.Nil
 )
 
 // Client 客户端
@@ -22,7 +29,7 @@ func NewClient(config *Config) (client *Client, err error) {
 	return
 }
 
-func newClient(config *Config) *Client {
+func newClient(config *Config) (client *Client, err error) {
 	config.InitWithDefaults()
 	options := &goredis.Options{
 		Network:      config.Network,
@@ -37,10 +44,20 @@ func newClient(config *Config) *Client {
 		PoolTimeout:  config.PoolTimeout,
 	}
 
-	client := goredis.NewClient(options)
+	redisClient := goredis.NewClient(options)
+	p, err := redisClient.Ping().Result()
+	if err != nil {
+		return
+	}
 
-	return &Client{
-		Client: client,
+	if strings.ToUpper(p) != Pong {
+		return
+	}
+
+	client = &Client{
+		Client: redisClient,
 		Config: config,
 	}
+
+	return
 }
