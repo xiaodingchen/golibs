@@ -1,8 +1,16 @@
+# github.com/extrame/ole2 v0.0.0-20160812065207-d69429661ad7
+## explicit
+github.com/extrame/ole2
+# github.com/extrame/xls v0.0.1
+## explicit
+github.com/extrame/xls
 # github.com/fsnotify/fsnotify v1.4.7
+## explicit
 github.com/fsnotify/fsnotify
 # github.com/gin-contrib/sse v0.1.0
 github.com/gin-contrib/sse
 # github.com/gin-gonic/gin v1.6.3
+## explicit
 github.com/gin-gonic/gin
 github.com/gin-gonic/gin/binding
 github.com/gin-gonic/gin/internal/bytesconv
@@ -15,11 +23,22 @@ github.com/go-playground/locales/currency
 github.com/go-playground/universal-translator
 # github.com/go-playground/validator/v10 v10.2.0
 github.com/go-playground/validator/v10
+# github.com/go-redis/redis v6.15.2+incompatible
+## explicit
+github.com/go-redis/redis
+github.com/go-redis/redis/internal
+github.com/go-redis/redis/internal/consistenthash
+github.com/go-redis/redis/internal/hashtag
+github.com/go-redis/redis/internal/pool
+github.com/go-redis/redis/internal/proto
+github.com/go-redis/redis/internal/util
 # github.com/go-sql-driver/mysql v1.4.1
+## explicit
 github.com/go-sql-driver/mysql
 # github.com/golang/protobuf v1.3.3
 github.com/golang/protobuf/proto
 # github.com/google/uuid v1.1.1
+## explicit
 github.com/google/uuid
 # github.com/hashicorp/hcl v1.0.0
 github.com/hashicorp/hcl
@@ -33,12 +52,14 @@ github.com/hashicorp/hcl/json/parser
 github.com/hashicorp/hcl/json/scanner
 github.com/hashicorp/hcl/json/token
 # github.com/jinzhu/gorm v1.9.10
+## explicit
 github.com/jinzhu/gorm
 # github.com/jinzhu/inflection v1.0.0
 github.com/jinzhu/inflection
 # github.com/json-iterator/go v1.1.9
 github.com/json-iterator/go
 # github.com/kami-zh/go-capturer v0.0.0-20171211120116-e492ea43421d
+## explicit
 github.com/kami-zh/go-capturer
 # github.com/leodido/go-urn v1.2.0
 github.com/leodido/go-urn
@@ -55,6 +76,7 @@ github.com/modern-go/reflect2
 # github.com/pelletier/go-toml v1.2.0
 github.com/pelletier/go-toml
 # github.com/rs/zerolog v1.15.0
+## explicit
 github.com/rs/zerolog
 github.com/rs/zerolog/diode
 github.com/rs/zerolog/diode/internal/diodes
@@ -65,15 +87,21 @@ github.com/rs/zerolog/log
 github.com/spf13/afero
 github.com/spf13/afero/mem
 # github.com/spf13/cast v1.3.0
+## explicit
 github.com/spf13/cast
 # github.com/spf13/jwalterweatherman v1.0.0
 github.com/spf13/jwalterweatherman
 # github.com/spf13/pflag v1.0.3
 github.com/spf13/pflag
 # github.com/spf13/viper v1.4.0
+## explicit
 github.com/spf13/viper
 # github.com/syyongx/php2go v0.9.3
+## explicit
 github.com/syyongx/php2go
+# github.com/tealeg/xlsx v1.0.5
+## explicit
+github.com/tealeg/xlsx
 # github.com/ugorji/go/codec v1.1.7
 github.com/ugorji/go/codec
 # golang.org/x/sys v0.0.0-20200116001909-b77594299b42
@@ -84,6 +112,7 @@ golang.org/x/text/unicode/norm
 # google.golang.org/appengine v1.4.0
 google.golang.org/appengine/cloudsql
 # google.golang.org/grpc v1.21.0
+## explicit
 google.golang.org/grpc/grpclog
 # gopkg.in/yaml.v2 v2.2.8
 gopkg.in/yaml.v2
